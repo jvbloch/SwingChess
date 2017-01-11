@@ -91,4 +91,9 @@ public abstract class Piece {
 	public ArrayList<Piece> getOpponentsPieces(){
 		return this.player.getKing().getOpponentsPieces();
 	}
+
+	public void refreshOpponentsPieces() {
+		// TODO Auto-generated method stub
+		
+	}
 }

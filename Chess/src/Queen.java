@@ -228,7 +228,9 @@ public class Queen extends Piece{
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(null);
 			
 			if(!(origionalTo == null)){
+				//System.out.println(this.getPlayer().getKing().getOpponentsPieces());
 				this.getPlayer().getKing().getOpponentsPieces().remove(origionalTo);
+				//System.out.println(this.getPlayer().getKing().getOpponentsPieces());
 			}
 			
 			this.setLX(possibleMove.getLX());
@@ -237,6 +239,7 @@ public class Queen extends Piece{
 			if(this.getPlayer().getKing().isInCheck()){
 				//if(!(this.getLX()==origX && this.getLY()==origY)){
 					possibleSpacesOutOfCheck.remove(possibleMove);
+					
 				//}
 			}			
 			

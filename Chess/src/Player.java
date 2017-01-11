@@ -1,5 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Player {
@@ -8,8 +6,6 @@ public class Player {
 	public String name;
 	private Piece king;
 	
-	public static String newPieceType;
-	public final static Object lock = new Object();
 	
 	public Player(String name) {
 		this.points = 0;
@@ -104,87 +100,5 @@ public class Player {
 		return this.king;
 	}
 	
-	public void pawnPromotion(){
-		
-			
-		
-		Prompt promotion = new Prompt();
-		promotion.promptLabel.setText("CHOOSE A PIECE TO PROMOTE TO:");
-		
-		
-		promotion.option1.setText("QUEEN (RECOMMENDED)");
-		promotion.option2.setText("       KNIGHT      ");
-		promotion.option3.setText("       BISHOP      ");
-		promotion.option4.setText("       ROOK        ");
-		
-		promotion.add(promotion.option1);
-		promotion.add(promotion.option2);
-		promotion.add(promotion.option3);
-		promotion.add(promotion.option4);
-
-		
-		
-		promotion.option1.addActionListener(new ActionListener()
-		{
-			  public void actionPerformed(ActionEvent e) 
-			  {
-				  
-				  newPieceType = "Queen";
-				  notifyAll();
-
-				  promotion.setDefaultCloseOperation(1);
-				  promotion.setVisible(false);
-				  promotion.dispose();
-				  
-				  
-			  }
-			  
-		});
-
-		promotion.option2.addActionListener(new ActionListener()
-		{
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  newPieceType = "Kight";
-				  notifyAll();
-				  
-				  promotion.setDefaultCloseOperation(1);
-				  promotion.setVisible(false);
-				  promotion.dispose();
-			  }
-			  
-		});
-		
-		promotion.option3.addActionListener(new ActionListener()
-		{
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  newPieceType = "Bishop";
-				  notifyAll();
-				  
-				  promotion.setDefaultCloseOperation(1);
-				  promotion.setVisible(false);
-				  promotion.dispose();
-			  }
-			  
-		});
-		promotion.option4.addActionListener(new ActionListener()
-		{
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  newPieceType = "Rook";
-				  notifyAll();
-				  
-				  promotion.setDefaultCloseOperation(1);
-				  promotion.setVisible(false);
-				  promotion.dispose();
-			  }
-			  
-		});
-		
-		promotion.pack();
 	
-		//return newPieceType;
-		
-	}
 }

@@ -1,9 +1,13 @@
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class Pawn extends Piece{
 	private ImageIcon image;
@@ -75,64 +79,114 @@ public class Pawn extends Piece{
 	    		
 	    		if(this.getLY()==0 || this.getLY()==7){//if pawn makes it to the end of the board
 	    			
-	    			this.getPlayer().removePiece(this);
+	    			//this.getPlayer().removePiece(this);
+	    			Chess.board.setEnabled(false);
 	    			
-	    			this.getPlayer().newPieceType = null;
-	    			Player currentPlayer = this.getPlayer();
-	    			currentPlayer.pawnPromotion();
-	    			(new Thread(){
-	    			class Promotion implements Runnable{
+	    			Prompt promotion = new Prompt();
+	    			promotion.promptLabel.setText("CHOOSE A PIECE TO PROMOTE TO:");
+	    			
+	    			
+	    			promotion.option1.setText(" QUEEN*");
+	    			promotion.option2.setText("KNIGHT");
+	    			promotion.option3.setText("BISHOP");
+	    			promotion.option4.setText(" ROOK ");
+	    			//promotion.option1.setIcon(new ImageIcon("QueenW"));
+	    			//promotion.option2.setIcon(new ImageIcon("KnightW"));
+	    			//promotion.option3.setIcon(new ImageIcon("BishopW"));
+	    			//promotion.option4.setIcon(new ImageIcon("RookW"));
+	    			
+	    			
+	    			promotion.add(promotion.option1);
+	    			promotion.add(promotion.option2);
+	    			promotion.add(promotion.option3);
+	    			promotion.add(promotion.option4);
 
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							currentPlayer.pawnPromotion();
-							
-						}
-	    				
-	    			}
-	    			}).start();
+	    			Pawn pawnToPromote = this;
 	    			
-	    			try {
-						wait();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	    				
-	    			/*
-	    			//shit dawg idk this doesn't work
-	    			synchronized(Player.lock){
-	    				
-		    			while(this.getPlayer().newPieceType==null){
-		    				//wait until user selects a new piece
-		    				try {
-								Player.lock.wait();
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-		    			}
-	    			}*/
+	    			promotion.option1.addActionListener(new ActionListener()
+	    			{
+	    				  public void actionPerformed(ActionEvent e) 
+	    				  {
+	    					  pawnToPromote.promote("Queen");
+	    					  
+	    					  Chess.board.setEnabled(true);
+	    					  promotion.setDefaultCloseOperation(1);
+	    					  promotion.setVisible(false);
+	    					  promotion.dispose();
+	    					  
+	    					  
+	    				  }
+	    				  
+	    			});
+
+	    			promotion.option2.addActionListener(new ActionListener()
+	    			{
+	    				  public void actionPerformed(ActionEvent e)
+	    				  {
+	    					  pawnToPromote.promote("Knight");
+	    					  
+	    					  Chess.board.setEnabled(true);
+	    					  promotion.setDefaultCloseOperation(1);
+	    					  promotion.setVisible(false);
+	    					  promotion.dispose();
+	    				  }
+	    				  
+	    			});
 	    			
-	    			this.getPlayer().addPiece(this.getPlayer().newPieceType, this.getLX(), this.getLY());
+	    			promotion.option3.addActionListener(new ActionListener()
+	    			{
+	    				  public void actionPerformed(ActionEvent e)
+	    				  {
+	    					  pawnToPromote.promote("Bishop");
+	    					  
+	    					  Chess.board.setEnabled(true);
+	    					  promotion.setDefaultCloseOperation(1);
+	    					  promotion.setVisible(false);
+	    					  promotion.dispose();
+	    				  }
+	    				  
+	    			});
+	    			promotion.option4.addActionListener(new ActionListener()
+	    			{
+	    				  public void actionPerformed(ActionEvent e)
+	    				  {
+	    					  pawnToPromote.promote("Rook");
+	    					  
+	    					  Chess.board.setEnabled(true);
+	    					  promotion.setDefaultCloseOperation(1);
+	    					  promotion.setVisible(false);
+	    					  promotion.dispose();
+	    				  }
+	    				  
+	    			});
 	    			
-	    			if(this.getLY()==0){//if belongs to p1
-	    				Chess.p2.getKing().getOpponentsPieces().remove(this);//removes pawn from opp king's view
-	    				//adds new piece to opp king's view
-	    				Chess.p2.getKing().getOpponentsPieces().add(this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
-	    			}
-	    			else{//if belongs to p2
-	    				Chess.p1.getKing().getOpponentsPieces().remove(this);
-	    				Chess.p1.getKing().getOpponentsPieces().add(this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
-		    			
-	    			}
+	    			promotion.pack();
 	    			
 	    			
 	    		}	
 	    	}
 		}
 		
+	}
+	
+	public void promote(String newPieceType){
+		
+		
+		this.getPlayer().removePiece(this);
+		
+		this.getPlayer().addPiece(newPieceType, this.getLX(), this.getLY());
+		
+		if(this.getLY()==0){//if belongs to p1
+			Chess.p2.getKing().getOpponentsPieces().remove(this);//removes pawn from opp king's view
+			//adds new piece to opp king's view
+			//Chess.p2.getKing().getOpponentsPieces().add(this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
+			System.out.print("P1 promoted pawn to "+this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
+		}
+		else{//if belongs to p2
+			Chess.p1.getKing().getOpponentsPieces().remove(this);
+			//Chess.p1.getKing().getOpponentsPieces().add(this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
+			System.out.print("P2 promoted pawn to "+this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
+		}
 	}
 	
 	@Override
@@ -142,35 +196,36 @@ public class Pawn extends Piece{
 		//possibleSpaces.add(Chess.board.spaces[this.getLY()][this.getLX()]);
 		Space examinedRightFork = null;
 		Space examinedLeftFork = null;
-		
-		if(this.getPlayer().name.equals("p1")){//is player1 and is moving north
-			if(this.getLX()<7){
-				examinedRightFork = Chess.board.spaces[this.getLY()-1][this.getLX()+1];
+		if(this.getLY()!=0 && this.getLY()!=7){//is not at end of board
+			if(this.getPlayer().name.equals("p1")){//is player1 and is moving north
+				if(this.getLX()<7){
+					examinedRightFork = Chess.board.spaces[this.getLY()-1][this.getLX()+1];
+				}
+				if(this.getLX()>0){
+					examinedLeftFork = Chess.board.spaces[this.getLY()-1][this.getLX()-1];
+				}
+				
 			}
-			if(this.getLX()>0){
-				examinedLeftFork = Chess.board.spaces[this.getLY()-1][this.getLX()-1];
+			else{//is other player and is moving south
+				if(this.getLX()<7){
+					examinedRightFork = Chess.board.spaces[this.getLY()+1][this.getLX()+1];
+				}
+				if(this.getLX()>0){
+					examinedLeftFork = Chess.board.spaces[this.getLY()+1][this.getLX()-1];
+				}
 			}
 			
-		}
-		else{//is other player and is moving south
-			if(this.getLX()<7){
-				examinedRightFork = Chess.board.spaces[this.getLY()+1][this.getLX()+1];
+			if(!(examinedRightFork==null)){
+				//if there is an enemy piece here
+				if(this.canMoveTo(examinedRightFork.getLX(), examinedRightFork.getLY()) && examinedRightFork.getPiece()!=null){
+					possibleSpaces.add(examinedRightFork);
+				}
 			}
-			if(this.getLX()>0){
-				examinedLeftFork = Chess.board.spaces[this.getLY()+1][this.getLX()-1];
-			}
-		}
-		
-		if(!(examinedRightFork==null)){
-			//if there is an enemy piece here
-			if(this.canMoveTo(examinedRightFork.getLX(), examinedRightFork.getLY()) && examinedRightFork.getPiece()!=null){
-				possibleSpaces.add(examinedRightFork);
-			}
-		}
-		if(!(examinedLeftFork==null)){
-			//if there is an enemy piece here
-			if(this.canMoveTo(examinedLeftFork.getLX(), examinedLeftFork.getLY()) && examinedLeftFork.getPiece()!=null){
-				possibleSpaces.add(examinedLeftFork);
+			if(!(examinedLeftFork==null)){
+				//if there is an enemy piece here
+				if(this.canMoveTo(examinedLeftFork.getLX(), examinedLeftFork.getLY()) && examinedLeftFork.getPiece()!=null){
+					possibleSpaces.add(examinedLeftFork);
+				}
 			}
 		}
 		//add forward move to next(rcv) method to prevent it from registering as a threatening move
@@ -218,18 +273,22 @@ public class Pawn extends Piece{
 			int origX = this.getLX();
 			int origY = this.getLY();
 			
-			
+			if(!(origionalTo == null)){
+				//System.out.println(x);
+				this.getPlayer().getKing().getOpponentsPieces().remove(origionalTo);
+			}
 			//System.out.println(origionalFrom);
 			
 			Chess.board.spaces[possibleMove.getLY()][possibleMove.getLX()].setPiece(this);
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(null);
 			
-			if(!(origionalTo == null)){
-				this.getPlayer().getKing().getOpponentsPieces().remove(origionalTo);
-			}
+			
+			
 			
 			this.setLX(possibleMove.getLX());
 			this.setLY(possibleMove.getLY());
+			
+			//this.getPlayer().getKing().refreshOpponentsPieces();
 			
 			if(this.getPlayer().getKing().isInCheck()){
 				//if(!(this.getLX()==origX && this.getLY()==origY)){

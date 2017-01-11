@@ -57,6 +57,17 @@ public class King extends Piece{
 		
 	}
 	@Override
+	public void refreshOpponentsPieces(){
+		if(this.getPlayer().name.equals("p1")){//shows the king where opponents piece's are
+			this.opponentsPieces = Chess.p2.getPieces();
+			this.opponentsKing = Chess.p2.getKing();
+		}
+		else{
+			this.opponentsPieces = Chess.p1.getPieces();
+			this.opponentsKing = Chess.p1.getKing();
+		}
+	}
+	@Override
 	public void move(int lx, int ly){
 		
 
@@ -338,10 +349,16 @@ public class King extends Piece{
 	@Override
 	public boolean isInCheck(){//check if this king is in check
 		
+		//this.refreshOpponentsPieces();
+		
 		for(Piece enemy: this.opponentsPieces){
 			if(!enemy.isKing){
 				if(enemy.checkPossibleMoves().contains(Chess.board.spaces[this.getLY()][this.getLX()])){
-				
+					//System.out.println(this.opponentsPieces.size());
+					System.out.println(enemy);
+					System.out.println(this.opponentsPieces);
+					
+					
 					return true;
 				}
 			}

@@ -355,10 +355,8 @@ public class King extends Piece{
 			if(!enemy.isKing){
 				if(enemy.checkPossibleMoves().contains(Chess.board.spaces[this.getLY()][this.getLX()])){
 					//System.out.println(this.opponentsPieces.size());
-					System.out.println(enemy);
-					System.out.println(this.opponentsPieces);
-					
-					
+					//System.out.println(enemy);
+					//System.out.println(this.opponentsPieces);
 					return true;
 				}
 			}

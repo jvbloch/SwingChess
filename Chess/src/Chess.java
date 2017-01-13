@@ -11,6 +11,7 @@ public class Chess {
 	public static Player p1;
 	public static Player p2;
 	protected static boolean isP1Turn;
+	protected static boolean gameIsLocal;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,6 +21,7 @@ public class Chess {
 	public static void newLocalPVPGame(){
 		board = new Board();
 		isP1Turn = true;
+		gameIsLocal = true;
 		//System.out.println(Chess.board.spaces[0][0]);
 		
 		Player p1 = new Player("p1");
@@ -27,6 +29,31 @@ public class Chess {
 		Chess.p1 = p1;
 		Chess.p2 = p2;
 		
+		setUpBoard();
+		
+		
+		//Prompt prompt = new Prompt();
+		//prompt.promptLabel.setText("HAVE FUN");
+		//prompt.setDefaultCloseOperation(1);
+	}
+	
+	public static void newAIGame(){
+		board = new Board();
+		isP1Turn = true;
+		gameIsLocal = false;
+		//System.out.println(Chess.board.spaces[0][0]);
+		
+		Player p1 = new Player("p1");
+		Player p2 = new AI();
+		
+		Chess.p1 = p1;
+		Chess.p2 = p2;
+		
+		setUpBoard();
+		
+	}
+	
+	public static void setUpBoard(){
 		p1.addPiece("Rook", 0, 7);
 		p1.addPiece("Rook", 7, 7);
 		p1.addPiece("Knight", 1, 7);
@@ -63,23 +90,27 @@ public class Chess {
 		
 		p2.addPiece("King", 4, 0);
 		
-		
-		
-		//Prompt prompt = new Prompt();
-		//prompt.promptLabel.setText("HAVE FUN");
-		//prompt.setDefaultCloseOperation(1);
 	}
 	
 	public static void passTurn(){//passes the turn between p1 and second player/comp player
 		board.panel.statusLabel.setForeground(Color.green);
 		if(isP1Turn){
 			isP1Turn =false;
-			Chess.board.panel.statusLabel.setText("PLAYER 2'S TURN");
+			if(gameIsLocal){
+				Chess.board.panel.statusLabel.setText("PLAYER 2'S TURN");
+			}
+			else{
+				Chess.board.panel.statusLabel.setText("AI'S TURN");
+				Chess.board.setEnabled(false);
+				Chess.p2.takeTurn();
+			}
+			
 			
 		}
 		else{
 			isP1Turn =true;
 			Chess.board.panel.statusLabel.setText("PLAYER 1'S TURN");
+			Chess.board.setEnabled(true);
 		}
 	}
 	
@@ -171,7 +202,7 @@ public class Chess {
 		mainMenu.add(mainMenu.option4);
 
 		mainMenu.option2.setEnabled(false);
-		mainMenu.option3.setEnabled(false);
+		//mainMenu.option3.setEnabled(false);
 		
 		mainMenu.option1.addActionListener(new ActionListener()
 		{
@@ -204,7 +235,7 @@ public class Chess {
 		{
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  //newLocalPVPGame();
+				  newAIGame();
 
 				  mainMenu.setDefaultCloseOperation(1);
 				  mainMenu.setVisible(false);

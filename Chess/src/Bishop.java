@@ -41,6 +41,7 @@ public class Bishop extends Piece{
 		
 		
 	}
+	@SuppressWarnings("static-access")
 	@Override
 	public void move(int lx, int ly){
 		
@@ -151,6 +152,7 @@ public class Bishop extends Piece{
 		}
 		return possibleSpaces;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Space> removeCheckVulnerableMoves(ArrayList<Space> possibleSpaces) {
 		ArrayList<Space> possibleSpacesOutOfCheck = (ArrayList<Space>) possibleSpaces.clone(); 

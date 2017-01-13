@@ -86,7 +86,7 @@ public class Pawn extends Piece{
 	    			promotion.promptLabel.setText("CHOOSE A PIECE TO PROMOTE TO:");
 	    			
 	    			
-	    			promotion.option1.setText(" QUEEN*");
+	    			promotion.option1.setText("QUEEN*");
 	    			promotion.option2.setText("KNIGHT");
 	    			promotion.option3.setText("BISHOP");
 	    			promotion.option4.setText(" ROOK ");

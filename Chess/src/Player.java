@@ -100,5 +100,8 @@ public class Player {
 		return this.king;
 	}
 	
+	public void takeTurn(){
+		//overridden by AI class
+	}
 	
 }

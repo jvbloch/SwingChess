@@ -96,8 +96,8 @@ public class Player {
 	public void setKing(Piece newKing){
 		this.king = newKing;
 	}
-	public Piece getKing(){
-		return this.king;
+	public King getKing(){
+		return (King) this.king;
 	}
 	
 	public void takeTurn(){

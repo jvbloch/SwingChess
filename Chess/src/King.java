@@ -104,16 +104,28 @@ public class King extends Piece{
 			
 			Chess.board.spaces[ly][lx].setIcon( (Icon) image);
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(this);//move piece object to space object
-			
-			if(!(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))){//was piece moved
-	    		//pass turn
-	    		//call a Chess.passturn method
-				Chess.passTurn();
-				System.out.println("It is P1 turn: " + Chess.isP1Turn);
-	    		System.out.println("Pass Turn");
-	    		
-	    		this.hasMoved = true;//piece has been moved this game
-	    	}
+			if(Chess.board.selected!=null){//workaround for ai pawnpromotion interaction 
+				if(!(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))){//was piece moved
+		    		//pass turn
+		    		//call a Chess.passturn method
+					Chess.passTurn();
+					System.out.println("It is P1 turn: " + Chess.isP1Turn);
+		    		System.out.println("Pass Turn");
+		    		
+		    		this.hasMoved = true;//piece has been moved this game
+		    	}
+			}
+			else{
+				if(true){//was piece moved
+		    		//pass turn
+		    		//call a Chess.passturn method
+					Chess.passTurn();
+					System.out.println("It is P1 turn: " + Chess.isP1Turn);
+		    		System.out.println("Pass Turn");
+		    		
+		    		this.hasMoved = true;//piece has been moved this game
+		    	}
+			}
 			
 		}
 		
@@ -367,6 +379,10 @@ public class King extends Piece{
 	@Override
 	public ArrayList<Piece> getOpponentsPieces(){
 		return this.opponentsPieces;
+	}
+	
+	public void setOpponentsPieces( ArrayList<Piece> oppPieces){
+		this.opponentsPieces = oppPieces;
 	}
 	
 	public boolean canCastleShort(){

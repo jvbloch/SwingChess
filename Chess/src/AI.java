@@ -16,6 +16,7 @@ public class AI extends Player{
 			Node move =this.chooseNode();//chooses best move
 			//moves piece
 			move.getPieceToMove().move(move.getSpaceToMoveTo().getLX(), move.getSpaceToMoveTo().getLY());
+			System.out.println("AI pieve moved");
 		}
 		
 	}
@@ -26,7 +27,7 @@ public class AI extends Player{
 		Node bestMove = possibleMoves[0];//change to have separate method choose move(like comment below)
 		//bestMove = this.chooseBestMove(possibleMoves);
 		
-		//System.out.println(possibleMoves.length);
+		System.out.println(possibleMoves.length);
 		//System.out.println(bestMove.getPieceToMove());
 		//System.out.println(bestMove.getSpaceToMoveTo().getLX()+", " + bestMove.getSpaceToMoveTo().getLY());
 		

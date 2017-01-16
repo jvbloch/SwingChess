@@ -65,14 +65,14 @@ public class Rook extends Piece{
 			
 			Chess.board.spaces[ly][lx].setIcon( (Icon) image);
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(this);
-			
-			if(!(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))){//was piece moved
+			//System.out.println("!!"+Chess.board.selected);
+			if(true){//was piece moved !(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))
 	    		//pass turn
 	    		//call a Chess.passturn method
 				Chess.passTurn();
 				System.out.println("It is P1 turn: " + Chess.isP1Turn);
 	    		System.out.println("Pass Turn");
-	    		
+	    	
 	    		this.hasMoved = true;//piece has been moved this game
 	    	}
 			

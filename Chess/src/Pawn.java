@@ -68,101 +68,107 @@ public class Pawn extends Piece{
 			Chess.board.spaces[ly][lx].setIcon( (Icon) image);
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(this);
 			
-			if(!(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))){//was piece moved
+			if(true){//was piece moved !(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))
 	    		//pass turn
-	    		//call a Chess.passturn method
+				if(!(this.getLY()==0 || this.getLY()==7)){
+					//call a Chess.passturn method
 				Chess.passTurn();
 				System.out.println("It is P1 turn: " + Chess.isP1Turn);
 	    		System.out.println("Pass Turn");
+				}
+	    		
 	    		
 	    		this.hasMoved = true;//piece has been moved this game
 	    		
 	    		if(this.getLY()==0 || this.getLY()==7){//if pawn makes it to the end of the board
-	    			
-	    			//this.getPlayer().removePiece(this);
-	    			Chess.board.setEnabled(false);
-	    			
-	    			Prompt promotion = new Prompt();
-	    			promotion.promptLabel.setText("CHOOSE A PIECE TO PROMOTE TO:");
-	    			
-	    			
-	    			promotion.option1.setText("QUEEN*");
-	    			promotion.option2.setText("KNIGHT");
-	    			promotion.option3.setText("BISHOP");
-	    			promotion.option4.setText(" ROOK ");
-	    			//promotion.option1.setIcon(new ImageIcon("QueenW"));
-	    			//promotion.option2.setIcon(new ImageIcon("KnightW"));
-	    			//promotion.option3.setIcon(new ImageIcon("BishopW"));
-	    			//promotion.option4.setIcon(new ImageIcon("RookW"));
-	    			
-	    			
-	    			promotion.add(promotion.option1);
-	    			promotion.add(promotion.option2);
-	    			promotion.add(promotion.option3);
-	    			promotion.add(promotion.option4);
-
-	    			Pawn pawnToPromote = this;
-	    			
-	    			promotion.option1.addActionListener(new ActionListener()
-	    			{
-	    				  public void actionPerformed(ActionEvent e) 
-	    				  {
-	    					  pawnToPromote.promote("Queen");
-	    					  
-	    					  Chess.board.setEnabled(true);
-	    					  promotion.setDefaultCloseOperation(1);
-	    					  promotion.setVisible(false);
-	    					  promotion.dispose();
-	    					  
-	    					  
-	    				  }
-	    				  
-	    			});
-
-	    			promotion.option2.addActionListener(new ActionListener()
-	    			{
-	    				  public void actionPerformed(ActionEvent e)
-	    				  {
-	    					  pawnToPromote.promote("Knight");
-	    					  
-	    					  Chess.board.setEnabled(true);
-	    					  promotion.setDefaultCloseOperation(1);
-	    					  promotion.setVisible(false);
-	    					  promotion.dispose();
-	    				  }
-	    				  
-	    			});
-	    			
-	    			promotion.option3.addActionListener(new ActionListener()
-	    			{
-	    				  public void actionPerformed(ActionEvent e)
-	    				  {
-	    					  pawnToPromote.promote("Bishop");
-	    					  
-	    					  Chess.board.setEnabled(true);
-	    					  promotion.setDefaultCloseOperation(1);
-	    					  promotion.setVisible(false);
-	    					  promotion.dispose();
-	    				  }
-	    				  
-	    			});
-	    			promotion.option4.addActionListener(new ActionListener()
-	    			{
-	    				  public void actionPerformed(ActionEvent e)
-	    				  {
-	    					  pawnToPromote.promote("Rook");
-	    					  
-	    					  Chess.board.setEnabled(true);
-	    					  promotion.setDefaultCloseOperation(1);
-	    					  promotion.setVisible(false);
-	    					  promotion.dispose();
-	    				  }
-	    				  
-	    			});
-	    			
-	    			promotion.pack();
-	    			
-	    			
+	    			if(this.getPlayer().name.equals("COMPUTER PLAYER")){
+	    				this.promote("Queen");
+	    			}
+	    			else{
+		    			//this.getPlayer().removePiece(this);
+		    			Chess.board.setEnabled(false);
+		    			
+		    			Prompt promotion = new Prompt();
+		    			promotion.promptLabel.setText("CHOOSE A PIECE TO PROMOTE TO:");
+		    			
+		    			
+		    			promotion.option1.setText("QUEEN*");
+		    			promotion.option2.setText("KNIGHT");
+		    			promotion.option3.setText("BISHOP");
+		    			promotion.option4.setText(" ROOK ");
+		    			//promotion.option1.setIcon(new ImageIcon("QueenW"));
+		    			//promotion.option2.setIcon(new ImageIcon("KnightW"));
+		    			//promotion.option3.setIcon(new ImageIcon("BishopW"));
+		    			//promotion.option4.setIcon(new ImageIcon("RookW"));
+		    			
+		    			
+		    			promotion.add(promotion.option1);
+		    			promotion.add(promotion.option2);
+		    			promotion.add(promotion.option3);
+		    			promotion.add(promotion.option4);
+	
+		    			Pawn pawnToPromote = this;
+		    			
+		    			promotion.option1.addActionListener(new ActionListener()
+		    			{
+		    				  public void actionPerformed(ActionEvent e) 
+		    				  {
+		    					  pawnToPromote.promote("Queen");
+		    					  
+		    					  Chess.board.setEnabled(true);
+		    					  promotion.setDefaultCloseOperation(1);
+		    					  promotion.setVisible(false);
+		    					  promotion.dispose();
+		    					  
+		    					  
+		    				  }
+		    				  
+		    			});
+	
+		    			promotion.option2.addActionListener(new ActionListener()
+		    			{
+		    				  public void actionPerformed(ActionEvent e)
+		    				  {
+		    					  pawnToPromote.promote("Knight");
+		    					  
+		    					  Chess.board.setEnabled(true);
+		    					  promotion.setDefaultCloseOperation(1);
+		    					  promotion.setVisible(false);
+		    					  promotion.dispose();
+		    				  }
+		    				  
+		    			});
+		    			
+		    			promotion.option3.addActionListener(new ActionListener()
+		    			{
+		    				  public void actionPerformed(ActionEvent e)
+		    				  {
+		    					  pawnToPromote.promote("Bishop");
+		    					  
+		    					  Chess.board.setEnabled(true);
+		    					  promotion.setDefaultCloseOperation(1);
+		    					  promotion.setVisible(false);
+		    					  promotion.dispose();
+		    				  }
+		    				  
+		    			});
+		    			promotion.option4.addActionListener(new ActionListener()
+		    			{
+		    				  public void actionPerformed(ActionEvent e)
+		    				  {
+		    					  pawnToPromote.promote("Rook");
+		    					  
+		    					  Chess.board.setEnabled(true);
+		    					  promotion.setDefaultCloseOperation(1);
+		    					  promotion.setVisible(false);
+		    					  promotion.dispose();
+		    				  }
+		    				  
+		    			});
+		    			
+		    			promotion.pack();
+		    			
+	    			}
 	    		}	
 	    	}
 		}
@@ -187,6 +193,35 @@ public class Pawn extends Piece{
 			//Chess.p1.getKing().getOpponentsPieces().add(this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
 			System.out.print("P2 promoted pawn to "+this.getPlayer().getPieces().get(this.getPlayer().getPieces().size()-1));
 		}
+		
+		
+		
+		if(Chess.p1.getKing().isInCheck()){//if p1 is in check
+			System.out.println("Player1 is in Check");
+			Chess.board.panel.statusLabel.setText("PLAYER 1 IS IN CHECK");
+			Chess.board.panel.statusLabel.setForeground(new Color(255, 20, 20));
+			
+			if(Chess.p1.isInCheckMate()){
+				System.out.println("CheckMate: Player 2 Wins!");
+				Chess.board.panel.statusLabel.setText("CHECKMATE: PLAYER 2 WINS!");
+				//make newGame prompt
+				Chess.generateNewGamePrompt("PLAYER 2");
+			}
+		}
+		if(Chess.p2.getKing().isInCheck()){//if p2 is in check
+			System.out.println("Player2 is in Check");
+			Chess.board.panel.statusLabel.setText("PLAYER 2 IS IN CHECK");
+			Chess.board.panel.statusLabel.setForeground(new Color(255, 20, 20));
+			
+			if(Chess.p2.isInCheckMate()){
+				System.out.println("CheckMate: Player 1 Wins!");
+				Chess.board.panel.statusLabel.setText("CHECKMATE: PLAYER 1 WINS!");
+				//make newGame prompt
+				Chess.generateNewGamePrompt("PLAYER 1");
+			}
+		}
+		//passturn
+		Chess.passTurn();
 	}
 	
 	@Override

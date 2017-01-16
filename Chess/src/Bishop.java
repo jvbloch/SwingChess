@@ -67,7 +67,7 @@ public class Bishop extends Piece{
 			Chess.board.spaces[ly][lx].setIcon( (Icon) image);
 			Chess.board.spaces[this.getLY()][this.getLX()].setPiece(this);
 			
-			if(!(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))){//was piece moved
+			if(true){//was piece moved !(Chess.board.selected.equals(Chess.board.spaces[this.getLY()][this.getLX()]))
 	    		//pass turn
 	    		//call a Chess.passturn method
 				Chess.passTurn();

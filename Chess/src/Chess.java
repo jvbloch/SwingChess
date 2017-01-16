@@ -94,6 +94,10 @@ public class Chess {
 	
 	public static void passTurn(){//passes the turn between p1 and second player/comp player
 		board.panel.statusLabel.setForeground(Color.green);
+		
+		Chess.p1.getKing().setOpponentsPieces(Chess.p2.getPieces());
+		Chess.p2.getKing().setOpponentsPieces(Chess.p1.getPieces());
+		
 		if(isP1Turn){
 			isP1Turn =false;
 			if(gameIsLocal){
@@ -138,8 +142,13 @@ public class Chess {
 				  Chess.board.setDefaultCloseOperation(1);
 				  Chess.board.setVisible(false);
 				  Chess.board.dispose();
+				  if(Chess.gameIsLocal){
+					  newLocalPVPGame();
+				  }
+				  else{
+					  newAIGame();
+				  }
 				  
-				  newLocalPVPGame();
 				  
 				  
 				  
@@ -196,9 +205,10 @@ public class Chess {
 		mainMenu.option3.setText("  SINGLE PLAYER   ");
 		mainMenu.option4.setText("       EXIT       ");
 		
+		mainMenu.add(mainMenu.option3);
 		mainMenu.add(mainMenu.option1);
 		mainMenu.add(mainMenu.option2);
-		mainMenu.add(mainMenu.option3);
+		
 		mainMenu.add(mainMenu.option4);
 
 		mainMenu.option2.setEnabled(false);
